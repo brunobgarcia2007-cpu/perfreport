@@ -53,7 +53,7 @@ The multi-stage Dockerfile builds with Rust 1.97.1 on Debian Bookworm, then copi
 - `test`: formatting, strict Clippy, release build, unit tests, and a native report run on Windows and Linux.
 - `container`: builds and runs the image after both native checks pass.
 
-The workflow runs on pushes to `main`, pull requests, and manual dispatch. Windows checks and the local Docker build/run passed on October 13, 2026. GitHub Actions results are being verified.
+The workflow runs on pushes to `main`, pull requests, and manual dispatch. Windows checks and the local Docker build/run passed on October 13, 2026. The Windows, Linux, and container jobs passed: https://github.com/brunobgarcia2007-cpu/perfreport/actions/runs/38448782204.
 
 To publish, create an empty public GitHub repository named `perfreport`. Set your own Git identity if needed, then use the real repository URL in these commands:
 
@@ -66,7 +66,7 @@ git remote add origin https://github.com/brunobgarcia2007-cpu/perfreport.git
 git push -u origin main
 ```
 
-`YOUR_USERNAME` is a placeholder. Sign in when Git requests authentication. Open the repository's Actions tab and confirm every job has passed.
+Sign in when Git requests authentication. Open the repository's Actions tab and confirm every job has passed.
 
 ## Submission still required
 
