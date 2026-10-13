@@ -1,0 +1,56 @@
+name: CI
+
+# Run on every push to main and on every pull request.
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  # Job 1: format, lint, build, and test the Rust code.
+  test:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v4
+
+      - name: Install the Rust toolchain
+        uses: dtolnay/rust-toolchain@1.97.1
+        with:
+          components: rustfmt, clippy
+
+      - name: Check formatting
+        run: cargo fmt --all --check
+
+      - name: Lint with clippy
+        run: cargo clippy --locked --all-targets -- -D warnings
+
+      - name: Build (release)
+        run: cargo build --release --locked --verbose
+
+      - name: Run tests
+        run: cargo test --locked --verbose
+
+      - name: Run the native report
+        run: cargo run --locked --release
+
+  # Job 2: build the container image. Only runs if job 1 passed (the gate).
+  container:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v4
+
+      - name: Build the container image
+        run: docker build -t perfreport:ci .
+
+      - name: Run the container report
+        run: docker run --rm perfreport:ci
