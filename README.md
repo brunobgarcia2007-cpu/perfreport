@@ -55,23 +55,6 @@ The multi-stage Dockerfile builds with Rust 1.97.1 on Debian Bookworm, then copi
 
 The workflow runs on pushes to `main`, pull requests, and manual dispatch. Windows checks and the local Docker build/run passed on October 13, 2026. The Windows, Linux, and container jobs passed: https://github.com/brunobgarcia2007-cpu/perfreport/actions/runs/38448782204.
 
-To publish, create an empty public GitHub repository named `perfreport`. Set your own Git identity if needed, then use the real repository URL in these commands:
-
-```powershell
-git init
-git add .
-git commit -m "Rust PerfReport with Docker and CI"
-git branch -M main
-git remote add origin https://github.com/brunobgarcia2007-cpu/perfreport.git
-git push -u origin main
-```
-
-Sign in when Git requests authentication. Open the repository's Actions tab and confirm every job has passed.
-
-## Submission still required
-
-The provided Word template requires seven genuine screenshots: C++ output; Rust/Cargo versions; project creation and Hello World; migrated Rust output; passing tests; Docker build/run; and passing GitHub Actions. Insert the screenshots and public repository URL, then export to the required PDF filename using your first initial and last name. Terminal text logs are supporting evidence, not screenshots.
-
 ## API reference
 
 [sysinfo 0.33.1 documentation](https://docs.rs/sysinfo/0.33.1/sysinfo/struct.System.html)
